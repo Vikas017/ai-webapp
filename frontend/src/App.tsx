@@ -66,7 +66,9 @@ const initialNodes: Node[] = [
 
 const initialEdges: Edge[] = [{ id: "e1-2", source: "1", target: "2" }];
 
-const URI = "http://localhost:3001/api";
+const URI = window.location.hostname === 'localhost' 
+  ? 'http://localhost:3001/api' 
+  : 'https://ai-webapp-backend.onrender.com/api';
 
 export default function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);

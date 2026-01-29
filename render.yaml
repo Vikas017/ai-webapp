@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: ai-webapp-backend
+    env: node
+    buildCommand: cd backend && npm install && npm run build
+    startCommand: cd backend && npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        fromDatabase:
+          name: ai-webapp-db
+          property: connectionString
+      - key: OPENROUTER_API_KEY
+        sync: false
+
+  - type: web
+    name: ai-webapp-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    routes:
+      - type: rewrite
+        source: /api/*
+        destination: https://ai-webapp-backend.onrender.com/api/*
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+databases:
+  - name: ai-webapp-db
+    databaseName: ai_webapp
+    user: admin
