@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ai-webapp-backend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        value: "mongodb+srv://abcd:abcd@cluster0.rxzs8wf.mongodb.net/?appName=Cluster0"
+        sync: false
+      - key: OPENROUTER_API_KEY
+        value: "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"
+        sync: false
