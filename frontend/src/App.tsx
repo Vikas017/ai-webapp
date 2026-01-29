@@ -51,7 +51,7 @@ const initialNodes: Node[] = [
     id: "1",
     type: "editableNode",
     data: { 
-      label: "Type your prompt here...",
+      label: "",
       onTextChange: () => {}
     },
     position: { x: 100, y: 100 },
