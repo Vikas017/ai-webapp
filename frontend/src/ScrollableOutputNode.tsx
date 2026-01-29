@@ -1,6 +1,11 @@
 import { Handle, Position, type NodeProps } from '@xyflow/react';
 
+interface OutputNodeData {
+  label: string;
+}
+
 export default function ScrollableOutputNode({ data }: NodeProps) {
+  const nodeData = data as unknown as OutputNodeData;
   return (
     <div
       style={{
@@ -37,7 +42,7 @@ export default function ScrollableOutputNode({ data }: NodeProps) {
           wordWrap: 'break-word',
         }}
       >
-        {data.label || 'Response will appear here...'}
+        {nodeData.label || 'Response will appear here...'}
       </div>
       <Handle type="target" position={Position.Left} />
     </div>

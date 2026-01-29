@@ -30,7 +30,7 @@ import {
   useTheme,
   Divider,
 } from "@mui/material";
-import { Menu as MenuIcon, History as HistoryIcon } from "@mui/icons-material";
+import { History as HistoryIcon } from "@mui/icons-material";
 import EditableNode from "./EditableNode";
 import ScrollableOutputNode from "./ScrollableOutputNode";
 
@@ -51,7 +51,7 @@ const initialNodes: Node[] = [
     id: "1",
     type: "editableNode",
     data: { 
-      label: "",
+      label: "Type your prompt here...",
       onTextChange: () => {}
     },
     position: { x: 100, y: 100 },
@@ -255,7 +255,6 @@ export default function App() {
             {history.map((item) => (
               <ListItem
                 key={item._id}
-                button
                 onClick={() => loadHistoryItem(item)}
                 sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'grey.100' } }}
               >

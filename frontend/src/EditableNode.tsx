@@ -1,9 +1,15 @@
 import { useState, useCallback } from 'react';
 import { Handle, Position, type NodeProps } from '@xyflow/react';
 
+interface EditableNodeData {
+  label: string;
+  onTextChange?: (id: string, text: string) => void;
+}
+
 export default function EditableNode({ data, id }: NodeProps) {
+  const nodeData = data as unknown as EditableNodeData;
   const [isEditing, setIsEditing] = useState(false);
-  const [text, setText] = useState(data.label || '');
+  const [text, setText] = useState(nodeData.label || '');
 
   const handleDoubleClick = useCallback(() => {
     setIsEditing(true);
@@ -12,17 +18,17 @@ export default function EditableNode({ data, id }: NodeProps) {
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     setIsEditing(false);
-    data.onTextChange?.(id, text);
-  }, [id, text, data]);
+    nodeData.onTextChange?.(id, text);
+  }, [id, text, nodeData]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       handleSubmit(e);
     } else if (e.key === 'Escape') {
       setIsEditing(false);
-      setText(data.label || '');
+      setText(nodeData.label || '');
     }
-  }, [handleSubmit, data.label]);
+  }, [handleSubmit, nodeData.label]);
 
   return (
     <div
