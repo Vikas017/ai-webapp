@@ -13,11 +13,13 @@ router.post('/ask-ai', async (req: Request<{}, {}, AskAIRequest>, res: Response)
     const { prompt } = req.body;
 
     if (!prompt) {
-      return res.status(400).json({ success: false, error: 'Prompt is required' });
+      res.status(400).json({ success: false, error: 'Prompt is required' });
+      return;
     }
 
     if (!process.env.OPENROUTER_API_KEY) {
-      return res.status(500).json({ success: false, error: 'OpenRouter API key not configured' });
+      res.status(500).json({ success: false, error: 'OpenRouter API key not configured' });
+      return;
     }
 
     const response = await axios.post('https://openrouter.ai/api/v1/chat/completions', {
@@ -53,7 +55,7 @@ router.post('/save', async (req: Request<{}, {}, { prompt: string; response: str
   }
 });
 
-router.get('/history', async (req: Request, res: Response) => {
+router.get('/history', async (_req: Request, res: Response) => {
   try {
     const conversations = await Conversation.find()
       .sort({ createdAt: -1 })

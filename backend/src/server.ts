@@ -14,7 +14,7 @@ app.use(express.json());
 app.use('/api', apiRoutes);
 
 // Keep-alive endpoint
-app.get('/ping', (req, res) => {
+app.get('/ping', (_req, res) => {
   res.json({ status: 'alive', timestamp: new Date().toISOString() });
 });
 

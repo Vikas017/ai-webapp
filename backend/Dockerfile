@@ -1,9 +1,9 @@
 FROM node:18-alpine
 
-WORKDIR /src
+WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci
 
 COPY . .
 RUN npm run build
